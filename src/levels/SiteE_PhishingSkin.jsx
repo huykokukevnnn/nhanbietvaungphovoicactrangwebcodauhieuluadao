@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RedFlag from '../components/RedFlag';
 
-const SiteE_PhishingSkin = ({ onStamp }) => {
+const SiteE_PhishingSkin = ({ onStamp, onUnstamp }) => {
   const [showFBModal, setShowFBModal] = useState(false);
   const [timeLeft, setTimeLeft] = useState(165); // 02:45
 
@@ -24,7 +24,7 @@ const SiteE_PhishingSkin = ({ onStamp }) => {
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-red-900/30 to-black pointer-events-none z-0"></div>
 
       {/* Red Flag 4: Fake text feed animation crawling on top */}
-      <RedFlag id="flag-fake-logs" isReal={false} onStamp={onStamp}>
+      <RedFlag id="flag-fake-logs" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
         <div className="absolute top-0 left-0 w-full h-8 bg-black/80 z-20 overflow-hidden flex items-center border-b border-gray-800 cursor-pointer">
           <div className="whitespace-nowrap animate-[marquee_15s_linear_infinite] text-xs text-green-400 font-mono tracking-wider">
             [SYS] User_9981 vừa nhận Rương Trang Phục SS --- [SYS] Nam_Pro_2k6 vừa quay trúng Raz Siêu Việt --- [SYS] HoaHao_123 nhận 5000 Quân Huy --- [SYS] Anh_Duy_Tung vừa nhận Ngộ Không Nhóc Tì --- [SYS]
@@ -40,7 +40,7 @@ const SiteE_PhishingSkin = ({ onStamp }) => {
           </h1>
 
           {/* Red Flag 2: Aggressive psychological pressure element (Countdown clock) */}
-          <RedFlag id="flag-pressure-clock" isReal={false} onStamp={onStamp}>
+          <RedFlag id="flag-pressure-clock" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
             <div className="inline-block bg-red-600/20 border-2 border-red-500 px-6 py-2 rounded-full mb-8 cursor-pointer hover:bg-red-600/40 transition-colors">
               <span className="text-red-400 font-bold uppercase mr-2">Sự kiện kết thúc sau:</span>
               <span className="text-2xl font-black text-white tracking-widest">{formatTime(timeLeft)}</span>
@@ -64,7 +64,7 @@ const SiteE_PhishingSkin = ({ onStamp }) => {
 
         {/* Red Flag 5: Fake static comment widget below the fold */}
         <div className="w-full max-w-4xl mx-auto mt-16 px-4 pb-12">
-          <RedFlag id="flag-static-comments" isReal={false} onStamp={onStamp}>
+          <RedFlag id="flag-static-comments" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
             <div className="bg-white rounded-lg p-4 cursor-pointer hover:ring-2 hover:ring-red-500">
               {/* This mimics the exact look of an FB comment widget but is entirely static HTML trying to look like a plugin */}
               <div className="flex items-center justify-between border-b border-gray-200 pb-2 mb-4">
@@ -94,9 +94,18 @@ const SiteE_PhishingSkin = ({ onStamp }) => {
       {/* FB Login Overlay */}
       {showFBModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="w-full max-w-sm bg-[#f0f2f5] rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+          <div className="w-full max-w-sm bg-[#f0f2f5] rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 relative">
+            {/* Nút đóng rõ ràng */}
+            <button 
+              onClick={(e) => { e.stopPropagation(); setShowFBModal(false); }}
+              className="absolute top-2 right-2 z-50 bg-gray-200 hover:bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center text-gray-700 font-bold shadow-sm transition-colors"
+              title="Đóng"
+            >
+              ✕
+            </button>
+
             {/* Red Flag 3: Mini address bar displaying local IP */}
-            <RedFlag id="flag-fake-fb-url" isReal={false} onStamp={onStamp}>
+            <RedFlag id="flag-fake-fb-url" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
               <div className="bg-white border-b border-gray-300 p-2 flex items-center gap-2 cursor-pointer">
                 <div className="flex gap-1">
                   <div className="w-3 h-3 rounded-full bg-red-400" onClick={(e) => {e.stopPropagation(); setShowFBModal(false)}}></div>

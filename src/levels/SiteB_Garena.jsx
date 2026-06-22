@@ -1,7 +1,7 @@
 import React from 'react';
 import RedFlag from '../components/RedFlag';
 
-const SiteB_Garena = ({ onStamp }) => {
+const SiteB_Garena = ({ onStamp, onUnstamp }) => {
   return (
     <div className="min-h-full bg-gray-950 text-white flex flex-col font-sans relative overflow-hidden">
       {/* Background decorations */}
@@ -34,7 +34,7 @@ const SiteB_Garena = ({ onStamp }) => {
         <div className="w-full max-w-5xl mx-auto mt-12 px-4 flex flex-col md:flex-row items-center gap-12">
           
           <div className="flex-1 space-y-6 text-center md:text-left">
-            <RedFlag id="garena-hero" isReal={true} onStamp={onStamp}>
+            <RedFlag id="garena-hero" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
               <div className="inline-block px-4 py-1 rounded-full bg-blue-500/20 border border-blue-500/50 text-blue-300 text-sm font-semibold mb-2">
                 SỰ KIỆN MÙA HÈ 2026
               </div>
@@ -52,7 +52,7 @@ const SiteB_Garena = ({ onStamp }) => {
           </div>
 
           <div className="flex-1 relative">
-            <RedFlag id="garena-image" isReal={true} onStamp={onStamp}>
+            <RedFlag id="garena-image" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
               {/* Fake hero image using an unsplash placeholder stylized like a game character */}
               <div className="relative w-full aspect-square max-w-md mx-auto">
                 <div className="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full"></div>
@@ -68,7 +68,7 @@ const SiteB_Garena = ({ onStamp }) => {
 
         {/* Info Cards */}
         <div className="w-full max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-3 gap-6">
-          <RedFlag id="garena-card1" isReal={true} onStamp={onStamp}>
+          <RedFlag id="garena-card1" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
             <div className="bg-gray-900/80 backdrop-blur border border-gray-800 p-6 rounded-xl hover:border-gray-600 transition-colors">
               <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl">🎮</span>
@@ -78,7 +78,7 @@ const SiteB_Garena = ({ onStamp }) => {
             </div>
           </RedFlag>
           
-          <RedFlag id="garena-card2" isReal={true} onStamp={onStamp}>
+          <RedFlag id="garena-card2" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
             <div className="bg-gray-900/80 backdrop-blur border border-gray-800 p-6 rounded-xl hover:border-gray-600 transition-colors">
               <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl">⚔️</span>
@@ -88,7 +88,7 @@ const SiteB_Garena = ({ onStamp }) => {
             </div>
           </RedFlag>
 
-          <RedFlag id="garena-card3" isReal={true} onStamp={onStamp}>
+          <RedFlag id="garena-card3" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
             <div className="bg-gray-900/80 backdrop-blur border border-gray-800 p-6 rounded-xl hover:border-gray-600 transition-colors">
               <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl">🎁</span>

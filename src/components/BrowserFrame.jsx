@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import RedFlag from './RedFlag';
 import { AppContext } from '../AppContext';
 
-const BrowserFrame = ({ url, isSecure, children, onConfirm, siteName, onStamp, onReport }) => {
+const BrowserFrame = ({ url, isSecure, children, onConfirm, siteName, onStamp, onUnstamp, onReport }) => {
   const context = useContext(AppContext);
   const isSelectMode = context?.isSelectMode || false;
   const setIsSelectMode = context?.setIsSelectMode || (() => {});
@@ -56,7 +56,7 @@ const BrowserFrame = ({ url, isSecure, children, onConfirm, siteName, onStamp, o
           </div>
           
           <div className="flex-1 max-w-4xl bg-[#f1f3f4] hover:bg-[#e8eaed] transition-colors border border-transparent focus-within:border-blue-400 focus-within:bg-white rounded-full flex items-center px-4 py-1.5">
-            <RedFlag id="flag-url" isReal={isSecure} onStamp={onStamp}>
+            <RedFlag id="flag-url" isReal={isSecure} onStamp={onStamp} onUnstamp={onUnstamp}>
               <div className="flex items-center w-full cursor-pointer px-2 py-0.5 rounded">
                 {isSecure ? (
                   <div className="flex items-center text-gray-600 mr-2" title="Connection is secure">

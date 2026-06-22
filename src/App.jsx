@@ -20,6 +20,16 @@ const ALL_LEVELS = [
   { id: 'F', component: SiteF_PhishingJob, isReal: false, url: 'http://tuyen-dung-genz-vieclam24h.org', name: 'Việc Làm 24h', isSecure: false }
 ];
 
+// Fisher-Yates shuffle algorithm
+const shuffleArray = (array) => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+};
+
 function App() {
   const [sequence, setSequence] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -34,8 +44,7 @@ function App() {
   const [showReportModal, setShowReportModal] = useState(false);
 
   useEffect(() => {
-    const shuffled = [...ALL_LEVELS].sort(() => Math.random() - 0.5);
-    setSequence(shuffled);
+    setSequence(shuffleArray(ALL_LEVELS));
   }, []);
 
   const currentLevel = sequence[currentIndex];
@@ -44,6 +53,10 @@ function App() {
     if (!stampedFlags.includes(flagId)) {
       setStampedFlags([...stampedFlags, flagId]);
     }
+  };
+
+  const handleUnstamp = (flagId) => {
+    setStampedFlags(stampedFlags.filter(id => id !== flagId));
   };
 
   const handleTrap = () => {
@@ -140,8 +153,7 @@ function App() {
         'success',
         () => {
           // Restart
-          const shuffled = [...ALL_LEVELS].sort(() => Math.random() - 0.5);
-          setSequence(shuffled);
+          setSequence(shuffleArray(ALL_LEVELS));
           setCurrentIndex(0);
           setStampedFlags([]);
           setIsSelectMode(false);
@@ -183,14 +195,16 @@ function App() {
         onSubmit={handleReportSubmit} 
       />
       <BrowserFrame 
+        key={currentLevel.id}
         url={currentLevel.url}
         isSecure={currentLevel.isSecure}
         siteName={currentLevel.name}
         onConfirm={handleConfirm}
         onStamp={handleStamp}
+        onUnstamp={handleUnstamp}
         onReport={handleReportClick}
       >
-        <LevelComponent onStamp={handleStamp} />
+        <LevelComponent onStamp={handleStamp} onUnstamp={handleUnstamp} />
       </BrowserFrame>
     </AppContext.Provider>
   );

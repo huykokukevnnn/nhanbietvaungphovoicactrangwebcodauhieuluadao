@@ -1,7 +1,7 @@
 import React from 'react';
 import RedFlag from '../components/RedFlag';
 
-const SiteF_PhishingJob = ({ onStamp }) => {
+const SiteF_PhishingJob = ({ onStamp, onUnstamp }) => {
   return (
     <div className="min-h-full bg-gray-50 font-sans text-gray-800">
       {/* Header */}
@@ -28,7 +28,7 @@ const SiteF_PhishingJob = ({ onStamp }) => {
             <h1 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">Tuyển CTV Học Sinh / Sinh Viên Dịch Thuật, Đánh Máy Tại Nhà</h1>
             
             {/* Red Flag 3: Unrealistic compensation */}
-            <RedFlag id="flag-unrealistic-pay" isReal={false} onStamp={onStamp}>
+            <RedFlag id="flag-unrealistic-pay" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
               <div className="flex flex-wrap gap-4 mb-6 cursor-pointer group">
                 <div className="bg-green-50 text-green-700 px-4 py-2 rounded-lg font-bold flex items-center gap-2 group-hover:ring-2 group-hover:ring-red-500">
                   <span className="text-xl">💰</span>
@@ -64,7 +64,7 @@ const SiteF_PhishingJob = ({ onStamp }) => {
           <div className="bg-white rounded-xl shadow-xl border-t-4 border-green-500 overflow-hidden sticky top-24">
             
             {/* Red Flag 5: Strict dynamic pop-up message (urgency) */}
-            <RedFlag id="flag-urgent-popup" isReal={false} onStamp={onStamp}>
+            <RedFlag id="flag-urgent-popup" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
               <div className="bg-red-50 text-red-600 text-xs font-bold p-3 text-center border-b border-red-100 cursor-pointer animate-pulse">
                 ⚠️ Tài khoản của bạn sẽ bị hủy hồ sơ ứng tuyển nếu không hoàn tất liên kết tài khoản trong vòng 60 giây!
               </div>
@@ -104,7 +104,7 @@ const SiteF_PhishingJob = ({ onStamp }) => {
                 </div>
 
                 {/* Red Flag 1: Requesting confidential items */}
-                <RedFlag id="flag-request-pwd" isReal={false} onStamp={onStamp}>
+                <RedFlag id="flag-request-pwd" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
                   <div className="cursor-pointer group relative">
                     <label className="block text-xs font-bold text-gray-700 mb-1">
                       Mật khẩu iBanking / OTP <span className="text-red-500">*</span>

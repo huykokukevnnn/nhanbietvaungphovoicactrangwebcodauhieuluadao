@@ -1,7 +1,7 @@
 import React from 'react';
 import RedFlag from '../components/RedFlag';
 
-const SiteA_MOET = ({ onStamp }) => {
+const SiteA_MOET = ({ onStamp, onUnstamp }) => {
   return (
     <div className="min-h-full bg-gray-50 flex flex-col font-sans">
       {/* Header */}
@@ -39,7 +39,7 @@ const SiteA_MOET = ({ onStamp }) => {
             <h2 className="text-2xl font-bold text-red-700 border-b-2 border-red-700 pb-2 mb-6">Tin tức nổi bật</h2>
             
             {/* Wrap sections in RedFlag with isReal=true so if they misidentify, it triggers failure */}
-            <RedFlag id="moet-news-1" isReal={true} onStamp={onStamp}>
+            <RedFlag id="moet-news-1" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
               <div className="group cursor-pointer">
                 <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-4 relative">
                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80" alt="Students" className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" />
@@ -50,7 +50,7 @@ const SiteA_MOET = ({ onStamp }) => {
             </RedFlag>
 
             <div className="grid sm:grid-cols-2 gap-6 mt-6">
-              <RedFlag id="moet-news-2" isReal={true} onStamp={onStamp}>
+              <RedFlag id="moet-news-2" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
                 <div className="flex gap-4 cursor-pointer group">
                   <div className="w-24 h-24 bg-gray-200 rounded shrink-0 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=300&q=80" className="object-cover w-full h-full group-hover:scale-110 transition-transform" />
@@ -62,7 +62,7 @@ const SiteA_MOET = ({ onStamp }) => {
                 </div>
               </RedFlag>
               
-              <RedFlag id="moet-news-3" isReal={true} onStamp={onStamp}>
+              <RedFlag id="moet-news-3" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
                 <div className="flex gap-4 cursor-pointer group">
                   <div className="w-24 h-24 bg-gray-200 rounded shrink-0 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=300&q=80" className="object-cover w-full h-full group-hover:scale-110 transition-transform" />
@@ -79,7 +79,7 @@ const SiteA_MOET = ({ onStamp }) => {
 
         {/* Right Column (Sidebar) */}
         <aside className="space-y-6">
-          <RedFlag id="moet-sidebar-1" isReal={true} onStamp={onStamp}>
+          <RedFlag id="moet-sidebar-1" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-5">
               <h3 className="font-bold text-lg border-b pb-2 mb-4 text-gray-800">Thông báo</h3>
               <ul className="space-y-3 text-sm text-gray-600">
@@ -90,7 +90,7 @@ const SiteA_MOET = ({ onStamp }) => {
             </div>
           </RedFlag>
 
-          <RedFlag id="moet-sidebar-2" isReal={true} onStamp={onStamp}>
+          <RedFlag id="moet-sidebar-2" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
             <div className="bg-blue-50 rounded-lg p-5 border border-blue-100">
               <h3 className="font-bold text-blue-900 mb-2">Hỗ trợ trực tuyến</h3>
               <p className="text-sm text-blue-800 mb-4">Hotline giải đáp thắc mắc về thi và tuyển sinh.</p>

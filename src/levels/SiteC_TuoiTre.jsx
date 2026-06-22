@@ -1,7 +1,7 @@
 import React from 'react';
 import RedFlag from '../components/RedFlag';
 
-const SiteC_TuoiTre = ({ onStamp }) => {
+const SiteC_TuoiTre = ({ onStamp, onUnstamp }) => {
   return (
     <div className="min-h-full bg-white font-serif text-gray-800 flex flex-col">
       {/* Top Header */}
@@ -52,7 +52,7 @@ const SiteC_TuoiTre = ({ onStamp }) => {
         
         {/* Featured News */}
         <div className="md:col-span-3">
-          <RedFlag id="tuoitre-main" isReal={true} onStamp={onStamp}>
+          <RedFlag id="tuoitre-main" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
             <div className="cursor-pointer group">
               <div className="aspect-video bg-gray-200 mb-4 overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80" alt="News" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -65,7 +65,7 @@ const SiteC_TuoiTre = ({ onStamp }) => {
           </RedFlag>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 pt-8 border-t border-gray-200">
-            <RedFlag id="tuoitre-sub1" isReal={true} onStamp={onStamp}>
+            <RedFlag id="tuoitre-sub1" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
               <div className="cursor-pointer group">
                 <div className="aspect-video bg-gray-200 mb-3 overflow-hidden">
                   <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=600&q=80" alt="News" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
@@ -75,7 +75,7 @@ const SiteC_TuoiTre = ({ onStamp }) => {
               </div>
             </RedFlag>
 
-            <RedFlag id="tuoitre-sub2" isReal={true} onStamp={onStamp}>
+            <RedFlag id="tuoitre-sub2" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
               <div className="cursor-pointer group">
                 <div className="aspect-video bg-gray-200 mb-3 overflow-hidden">
                   <img src="https://images.unsplash.com/photo-1491336477066-31156b5e4f35?auto=format&fit=crop&w=600&q=80" alt="News" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
@@ -92,19 +92,19 @@ const SiteC_TuoiTre = ({ onStamp }) => {
           <div>
             <h3 className="font-bold text-red-600 uppercase mb-4 border-b pb-2">Đọc nhiều</h3>
             <ul className="space-y-4 font-sans text-sm">
-              <RedFlag id="tuoitre-side1" isReal={true} onStamp={onStamp}>
+              <RedFlag id="tuoitre-side1" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
                 <li className="flex gap-3 cursor-pointer group">
                   <span className="text-gray-300 font-bold text-2xl group-hover:text-red-500">1</span>
                   <span className="group-hover:text-red-600 font-semibold">Khởi nghiệp sinh viên: Những dự án triệu đô từ giảng đường</span>
                 </li>
               </RedFlag>
-              <RedFlag id="tuoitre-side2" isReal={true} onStamp={onStamp}>
+              <RedFlag id="tuoitre-side2" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
                 <li className="flex gap-3 cursor-pointer group">
                   <span className="text-gray-300 font-bold text-2xl group-hover:text-red-500">2</span>
                   <span className="group-hover:text-red-600 font-semibold">Cảnh báo thủ đoạn lừa đảo trực tuyến mới</span>
                 </li>
               </RedFlag>
-              <RedFlag id="tuoitre-side3" isReal={true} onStamp={onStamp}>
+              <RedFlag id="tuoitre-side3" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
                 <li className="flex gap-3 cursor-pointer group">
                   <span className="text-gray-300 font-bold text-2xl group-hover:text-red-500">3</span>
                   <span className="group-hover:text-red-600 font-semibold">Lịch cắt điện luân phiên tuần tới tại Hà Nội</span>

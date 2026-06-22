@@ -24,7 +24,7 @@ const SystemAlert = ({ title, message, type, onClose, show }) => {
   };
 
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="absolute inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className={`w-full max-w-md p-6 border-l-4 rounded-lg shadow-2xl transform transition-all scale-100 ${getStyles()}`}>
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">

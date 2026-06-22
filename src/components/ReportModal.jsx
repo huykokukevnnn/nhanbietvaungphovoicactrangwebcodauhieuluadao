@@ -9,7 +9,7 @@ const ReportModal = ({ show, onClose, onSubmit }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="bg-white w-full max-w-lg rounded-xl shadow-2xl overflow-hidden">
         <div className="bg-yellow-400 px-6 py-4 border-b border-yellow-500 flex items-center gap-3">
           <span className="text-2xl">⚠️</span>
