@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import BrowserFrame from './components/BrowserFrame';
 import SystemAlert from './components/SystemAlert';
+import ReportModal from './components/ReportModal';
+import { AppContext } from './AppContext';
+
 import SiteA_MOET from './levels/SiteA_MOET';
 import SiteB_Garena from './levels/SiteB_Garena';
 import SiteC_TuoiTre from './levels/SiteC_TuoiTre';
@@ -8,7 +11,6 @@ import SiteD_PhishingDocs from './levels/SiteD_PhishingDocs';
 import SiteE_PhishingSkin from './levels/SiteE_PhishingSkin';
 import SiteF_PhishingJob from './levels/SiteF_PhishingJob';
 
-// List of levels
 const ALL_LEVELS = [
   { id: 'A', component: SiteA_MOET, isReal: true, url: 'https://moet.gov.vn', name: 'Bộ Giáo dục và Đào tạo', isSecure: true },
   { id: 'B', component: SiteB_Garena, isReal: true, url: 'https://sukien.lienquan.garena.vn', name: 'Sự kiện Liên Quân', isSecure: true },
@@ -21,11 +23,16 @@ const ALL_LEVELS = [
 function App() {
   const [sequence, setSequence] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [stampedFlags, setStampedFlags] = useState([]);
   
+  // Game states
+  const [stampedFlags, setStampedFlags] = useState([]);
+  const [isSelectMode, setIsSelectMode] = useState(false);
+  const [isReported, setIsReported] = useState(false);
+  
+  // Modals
   const [alertConfig, setAlertConfig] = useState({ show: false, title: '', message: '', type: 'info', onNext: null });
+  const [showReportModal, setShowReportModal] = useState(false);
 
-  // Initialize random sequence
   useEffect(() => {
     const shuffled = [...ALL_LEVELS].sort(() => Math.random() - 0.5);
     setSequence(shuffled);
@@ -39,47 +46,80 @@ function App() {
     }
   };
 
+  const handleTrap = () => {
+    // Kích hoạt khi click vào phần tử bẫy mà chưa bật chế độ khoanh vùng
+    showAlert(
+      'Cảnh báo!',
+      'Bạn đã sập bẫy của các đối tượng lừa đảo.',
+      'error',
+      () => {
+        // Tùy chọn: Chuyển qua trang tiếp theo luôn hoặc bắt chơi lại
+        nextLevel();
+      }
+    );
+  };
+
+  const handleReportClick = () => {
+    if (stampedFlags.length === 0) {
+      showAlert('Cảnh báo', 'Bạn chưa đưa ra bằng chứng khả nghi', 'warning');
+    } else {
+      setShowReportModal(true);
+    }
+  };
+
+  const handleReportSubmit = () => {
+    setShowReportModal(false);
+    setIsReported(true);
+    // Hiện ra các điểm nghi vấn còn sót
+    showAlert(
+      'Thành công',
+      'Đã báo cáo thành công! Lưu ý: Trên trang này có thể vẫn còn một số điểm nghi vấn khác (những điểm chưa được khoanh đỏ). Hãy chú ý hơn ở các lần sau nhé!',
+      'success'
+    );
+  };
+
   const handleConfirm = () => {
     if (!currentLevel) return;
 
     if (currentLevel.isReal) {
-      if (stampedFlags.length > 0) {
-        // Failed real site
+      if (stampedFlags.length > 0 || isReported) {
         showAlert(
-          'Đánh giá chưa chính xác!',
-          'Bạn đã đánh dấu sai điểm nghi vấn bảo mật hoặc trang web này hoàn toàn an toàn!',
+          'Đánh giá chưa chính xác',
+          'Đây là trang web thật, bạn đã quá đa nghi rồi',
           'error',
-          () => {
-            setStampedFlags([]);
-          }
+          nextLevel
         );
       } else {
-        // Passed real site
         showAlert(
           'Tuyệt vời!',
-          'Chính xác! Đây là trang web hợp lệ và an toàn.',
+          'Bạn đã tin tưởng đúng trang web',
           'success',
           nextLevel
         );
       }
     } else {
-      // Fake site needs 4/5 flags
-      // In this simple implementation, any 4 flags stamped on a fake site is considered passing.
-      if (stampedFlags.length >= 4) {
-        // Passed fake site
+      // Trang Fake
+      if (stampedFlags.length === 0) {
+        // Chưa đánh dấu điểm khả nghi và ấn Đã hoàn thành kiểm tra
+        showAlert(
+          'Đánh giá chưa chính xác',
+          'Đây là một trang web lừa đảo bạn đã không hoàn thành việc chọn lọc',
+          'error',
+          nextLevel
+        );
+      } else if (stampedFlags.length > 0 && isReported) {
         showAlert(
           'Xuất sắc!',
-          `Bạn đã tìm ra ${stampedFlags.length}/5 dấu hiệu lừa đảo. Rất tinh mắt!`,
+          'Chúc mừng bạn đã lựa chọn đúng',
           'success',
           nextLevel
         );
-      } else {
-        // Failed fake site
+      } else if (stampedFlags.length > 0 && !isReported) {
         showAlert(
-          'Chưa đủ dấu hiệu!',
-          `Đây là trang web lừa đảo. Bạn mới tìm được ${stampedFlags.length}/5 dấu hiệu. Hãy tìm thêm ít nhất 4 dấu hiệu để vượt qua!`,
+          'Chú ý!',
+          'Bạn đã quên báo cáo trang web có hành vi lừa đảo',
           'warning',
-          () => {} // close alert and keep trying
+          nextLevel
         );
       }
     }
@@ -88,7 +128,10 @@ function App() {
   const nextLevel = () => {
     if (currentIndex + 1 < sequence.length) {
       setCurrentIndex(currentIndex + 1);
+      // Reset state for new level
       setStampedFlags([]);
+      setIsSelectMode(false);
+      setIsReported(false);
     } else {
       // Game Over
       showAlert(
@@ -101,6 +144,8 @@ function App() {
           setSequence(shuffled);
           setCurrentIndex(0);
           setStampedFlags([]);
+          setIsSelectMode(false);
+          setIsReported(false);
         }
       );
     }
@@ -119,12 +164,12 @@ function App() {
     });
   };
 
-  if (sequence.length === 0) return <div className="h-screen flex items-center justify-center bg-gray-900 text-white">Đang tải...</div>;
+  if (sequence.length === 0) return <div className="h-screen flex items-center justify-center bg-gray-100 text-gray-800">Đang tải...</div>;
 
   const LevelComponent = currentLevel.component;
 
   return (
-    <>
+    <AppContext.Provider value={{ isSelectMode, setIsSelectMode, handleTrap }}>
       <SystemAlert 
         show={alertConfig.show} 
         title={alertConfig.title} 
@@ -132,15 +177,22 @@ function App() {
         type={alertConfig.type} 
         onClose={alertConfig.onNext} 
       />
+      <ReportModal 
+        show={showReportModal} 
+        onClose={() => setShowReportModal(false)} 
+        onSubmit={handleReportSubmit} 
+      />
       <BrowserFrame 
         url={currentLevel.url}
         isSecure={currentLevel.isSecure}
         siteName={currentLevel.name}
         onConfirm={handleConfirm}
+        onStamp={handleStamp}
+        onReport={handleReportClick}
       >
         <LevelComponent onStamp={handleStamp} />
       </BrowserFrame>
-    </>
+    </AppContext.Provider>
   );
 }
 

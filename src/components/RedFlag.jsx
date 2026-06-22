@@ -1,30 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../AppContext';
 
 const RedFlag = ({ children, onStamp, id, isReal = false }) => {
   const [stamped, setStamped] = useState(false);
+  const context = useContext(AppContext);
+  
+  // Provide safe defaults if context isn't wrapped yet
+  const isSelectMode = context?.isSelectMode || false;
+  const handleTrap = context?.handleTrap || (() => {});
 
   const handleClick = (e) => {
-    e.stopPropagation(); // prevent bubbling if nested
-    if (!stamped) {
-      setStamped(true);
-      if (onStamp) onStamp(id, !isReal);
+    if (isSelectMode) {
+      // Trong chế độ khoanh vùng, chặn các sự kiện mặc định (click link)
+      e.preventDefault();
+      e.stopPropagation();
+      if (!stamped) {
+        setStamped(true);
+        if (onStamp) onStamp(id, !isReal);
+      }
+    } else {
+      // Trong chế độ tương tác bình thường
+      if (!isReal && !stamped) {
+        // Nếu là bẫy của trang giả mạo, gọi hàm sập bẫy
+        e.preventDefault();
+        e.stopPropagation();
+        handleTrap();
+      }
+      // Nếu là trang thật hoặc điểm đó đã bị khoanh vùng thì cứ để tương tác bình thường
     }
   };
 
   return (
     <div 
-      className={`relative inline-block ${stamped ? '' : 'cursor-crosshair hover:ring-2 hover:ring-red-500/50'} transition-all`}
-      onClick={handleClick}
+      className={`relative inline-block ${!stamped && isSelectMode ? 'cursor-crosshair hover:ring-2 hover:ring-red-500/50' : ''} transition-all`}
+      onClickCapture={handleClick}
     >
       {children}
       {stamped && (
         <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none overflow-visible">
-          <div className="text-red-600 font-black text-4xl transform -rotate-12 drop-shadow-md animate-bounce">
-            {/* Target marker stamp icon */}
-            <svg className="w-16 h-16 opacity-90" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
-              <circle cx="12" cy="12" r="2" />
-            </svg>
+          {/* Vòng tròn Highlight đỏ */}
+          <div className="w-[110%] h-[110%] min-w-[2rem] min-h-[2rem] rounded-xl border-4 border-red-500 bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.5)] animate-in zoom-in duration-300">
           </div>
         </div>
       )}
