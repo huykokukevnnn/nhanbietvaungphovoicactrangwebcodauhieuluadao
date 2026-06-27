@@ -8,6 +8,9 @@ import SiteC_TuoiTre from './levels/SiteC_TuoiTre';
 import SiteD_PhishingDocs from './levels/SiteD_PhishingDocs';
 import SiteE_PhishingSkin from './levels/SiteE_PhishingSkin';
 import SiteF_PhishingJob from './levels/SiteF_PhishingJob';
+import SiteG_FacebookReal from './levels/SiteG_FacebookReal';
+import SiteH_HocmaiReal from './levels/SiteH_HocmaiReal';
+import SiteI_TiktokFake from './levels/SiteI_TiktokFake';
 
 const ALL_LEVELS = [
   { 
@@ -69,6 +72,36 @@ const ALL_LEVELS = [
     isSecure: true,
     trickLocation: 'url',
     explanation: 'Một trang web lừa đảo nhằm đánh cắp thông tin ngân hàng. Thứ nhất, tên miền thực sự là <b>vn-tuyendung.com</b> chứ không phải vieclam24h. Thứ hai, <b>TUYỆT ĐỐI KHÔNG</b> có nhà tuyển dụng uy tín nào lại yêu cầu bạn nhập Mật khẩu iBanking hay mã OTP cả!'
+  },
+  {
+    id: 'G',
+    component: SiteG_FacebookReal,
+    isReal: true,
+    url: 'https://www.facebook.com',
+    name: 'Facebook Đăng nhập',
+    isSecure: true,
+    trickLocation: 'none',
+    explanation: 'Đây là trang web chính thức của Facebook. Tên miền đúng chuẩn <b>facebook.com</b> và có đầy đủ chứng chỉ bảo mật. Các liên kết chức năng như "Quên mật khẩu" hay "Tạo tài khoản" đều trỏ đúng về hệ thống thật của Facebook.'
+  },
+  {
+    id: 'H',
+    component: SiteH_HocmaiReal,
+    isReal: true,
+    url: 'https://hocmai.vn',
+    name: 'Hệ thống Giáo dục HOCMAI',
+    isSecure: true,
+    trickLocation: 'none',
+    explanation: 'Đây là nền tảng học trực tuyến chính thống được rất nhiều học sinh sử dụng. Bạn có thể thấy URL hoàn toàn chính xác là <b>hocmai.vn</b>, không sai chính tả, không dùng tên miền phụ (subdomain) lừa đảo.'
+  },
+  {
+    id: 'I',
+    component: SiteI_TiktokFake,
+    isReal: false,
+    url: 'https://tiktok.com.nhan-xu-free.net',
+    name: 'TikTok - Tặng Xu Miễn Phí',
+    isSecure: true,
+    trickLocation: 'url',
+    explanation: 'Một trang web lừa đảo kinh điển đánh vào lòng tham! Tên miền thực sự ở đây là <b>nhan-xu-free.net</b>. Chuỗi <i>tiktok.com</i> được cố tình đặt ở đầu để đánh lừa mắt bạn (Thủ đoạn Tên miền phụ - Subdomain Tricking).'
   }
 ];
 
