@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const SiteE_PhishingSkin = ({ onHoverLink }) => {
+const SiteE_PhishingSkin = ({ onHoverLink, isExplaining }) => {
   const [showFBModal, setShowFBModal] = useState(false);
   const [timeLeft, setTimeLeft] = useState(165); // 02:45
 
@@ -92,8 +92,8 @@ const SiteE_PhishingSkin = ({ onHoverLink }) => {
 
       {/* FB Login Overlay */}
       {showFBModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="w-full max-w-sm bg-[#f0f2f5] rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 relative">
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/60 transition-colors ${isExplaining ? 'bg-black/20' : ''}`}>
+          <div className={`w-full max-w-sm bg-[#f0f2f5] rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 relative transition-all duration-500 ${isExplaining ? 'ring-4 ring-red-500 scale-105 shadow-[0_0_40px_rgba(239,68,68,0.5)]' : ''}`}>
             {/* Nút đóng rõ ràng */}
             <button 
               onClick={(e) => { e.stopPropagation(); setShowFBModal(false); }}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BrowserFrame = ({ url, isSecure, siteName, children, hoveredLink }) => {
+const BrowserFrame = ({ url, isSecure, siteName, children, hoveredLink, isExplaining, trickLocation }) => {
   return (
     <div className="h-screen w-full bg-gray-100 flex flex-col font-sans overflow-hidden relative">
       {/* Browser Top Bar - Light Theme */}
@@ -30,7 +30,7 @@ const BrowserFrame = ({ url, isSecure, siteName, children, hoveredLink }) => {
             </button>
           </div>
           
-          <div className="flex-1 bg-[#f1f3f4] rounded-full flex items-center px-4 py-1.5">
+          <div className={`flex-1 bg-[#f1f3f4] rounded-full flex items-center px-4 py-1.5 transition-all duration-500 ${isExplaining && trickLocation === 'url' ? 'ring-4 ring-red-500 bg-red-50/50 scale-[1.02] shadow-[0_0_30px_rgba(239,68,68,0.4)]' : ''}`}>
             <div className="flex items-center w-full px-2 py-0.5">
               {isSecure ? (
                 <div className="flex items-center text-gray-600 mr-2" title="Connection is secure">

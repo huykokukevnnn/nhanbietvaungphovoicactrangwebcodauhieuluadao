@@ -5,11 +5,11 @@ const ExplanationModal = ({ show, isCorrect, reason, onNext, explanationImage })
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-end justify-center pointer-events-none">
-      {/* Background Dim (optional, if we want to focus on the modal) */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto transition-opacity" onClick={onNext}></div>
+      {/* Invisible overlay that still captures clicks outside to close, but allows the user to see clearly */}
+      <div className="absolute inset-0 bg-transparent pointer-events-none"></div>
 
       {/* Modal Content */}
-      <div className="bg-white w-full max-w-4xl rounded-t-3xl shadow-2xl overflow-hidden animate-in slide-in-from-bottom-full duration-500 pointer-events-auto relative z-10 flex flex-col max-h-[85vh]">
+      <div className="bg-white w-full max-w-4xl rounded-t-3xl shadow-[0_-20px_60px_rgba(0,0,0,0.3)] overflow-hidden animate-in slide-in-from-bottom-full duration-500 pointer-events-auto relative z-10 flex flex-col max-h-[60vh]">
         
         {/* Header Bar indicating Correct/Incorrect */}
         <div className={`px-8 py-6 flex items-center gap-4 ${isCorrect ? 'bg-green-100 border-b border-green-200' : 'bg-red-100 border-b border-red-200'}`}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SiteD_PhishingDocs = ({ onHoverLink }) => {
+const SiteD_PhishingDocs = ({ onHoverLink, isExplaining }) => {
   const [isDownloading, setIsDownloading] = useState(false);
 
   const handleDownload = () => {
@@ -49,7 +49,7 @@ const SiteD_PhishingDocs = ({ onHoverLink }) => {
             <button 
               onMouseEnter={() => onHoverLink('http://hacker-server.net/payloads/download-manager.exe')} 
               onMouseLeave={() => onHoverLink('')}
-              className="w-full mb-4 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+              className={`w-full mb-4 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 ${isExplaining ? 'ring-4 ring-red-500 animate-pulse scale-105 shadow-[0_0_20px_rgba(239,68,68,0.6)] z-20 relative' : ''}`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
               TẢI NHANH X10 (DÙNG PHẦN MỀM HỖ TRỢ)

@@ -17,6 +17,7 @@ const ALL_LEVELS = [
     url: 'https://moet.gov.vn', 
     name: 'Bộ Giáo dục và Đào tạo', 
     isSecure: true,
+    trickLocation: 'none',
     explanation: 'Đây là trang web chính thức của Bộ Giáo dục và Đào tạo. Tên miền chuẩn xác là <b>moet.gov.vn</b>, có chứng chỉ bảo mật an toàn, và tất cả các nút bấm trên trang đều dẫn về đúng hệ thống của Bộ.'
   },
   { 
@@ -26,6 +27,7 @@ const ALL_LEVELS = [
     url: 'https://sukien.lienquan.garena.vn-nhanqua.top', 
     name: 'Sự kiện Liên Quân', 
     isSecure: true,
+    trickLocation: 'url',
     explanation: 'Kẻ gian sử dụng thủ đoạn <b>Tên miền phụ (Subdomain Tricking)</b>. Tên miền thực sự của trang web này là <b>vn-nhanqua.top</b>. Chuỗi <i>sukien.lienquan.garena</i> chỉ là tên miền phụ được tạo ra để đánh lừa mắt bạn.'
   },
   { 
@@ -35,6 +37,7 @@ const ALL_LEVELS = [
     url: 'https://tu0itre.vn', 
     name: 'Tuổi Trẻ Online', 
     isSecure: true,
+    trickLocation: 'url',
     explanation: 'Đây là thủ đoạn <b>Đăng ký sai chính tả (Typosquatting)</b>. Nhìn kỹ vào thanh địa chỉ, chữ <b>"o"</b> đã bị kẻ gian thay bằng số <b>"0"</b> (tu0itre thay vì tuoitre). Giao diện có thể copy 100%, nhưng tên miền thì không thể trùng lặp.'
   },
   { 
@@ -44,6 +47,7 @@ const ALL_LEVELS = [
     url: 'https://thuvientailieu.vn', 
     name: 'Thư viện tài liệu', 
     isSecure: true,
+    trickLocation: 'hover',
     explanation: 'URL nhìn có vẻ an toàn, nhưng thủ đoạn nằm ở nút bấm! Khi bạn <b>rê chuột (hover)</b> vào nút "TẢI NHANH X10", hãy nhìn xuống góc trái trình duyệt, bạn sẽ thấy link tải thực chất trỏ tới một file mã độc <b>.exe</b> độc hại thay vì file PDF.'
   },
   { 
@@ -53,6 +57,7 @@ const ALL_LEVELS = [
     url: 'https://sukien.lienquan.garena.vn', 
     name: 'Sự kiện Liên Quân', 
     isSecure: true, // It pretends to be secure main site, but the modal inside is fake
+    trickLocation: 'content',
     explanation: 'Thanh URL chính là thật, NHƯNG khung đăng nhập Facebook lại là giả mạo! Kẻ xấu sử dụng kỹ thuật <b>Browser-in-Browser (Trình duyệt lồng Trình duyệt)</b>. Khung đăng nhập đó chỉ là một bức tranh tĩnh được vẽ bằng mã code, nó không phải là cửa sổ pop-up thật của trình duyệt.'
   },
   { 
@@ -62,6 +67,7 @@ const ALL_LEVELS = [
     url: 'https://vieclam24h.vn-tuyendung.com', 
     name: 'Việc Làm 24h', 
     isSecure: true,
+    trickLocation: 'url',
     explanation: 'Một trang web lừa đảo nhằm đánh cắp thông tin ngân hàng. Thứ nhất, tên miền thực sự là <b>vn-tuyendung.com</b> chứ không phải vieclam24h. Thứ hai, <b>TUYỆT ĐỐI KHÔNG</b> có nhà tuyển dụng uy tín nào lại yêu cầu bạn nhập Mật khẩu iBanking hay mã OTP cả!'
   }
 ];
@@ -161,8 +167,10 @@ function App() {
           isSecure={currentLevel.isSecure}
           siteName={currentLevel.name}
           hoveredLink={hoveredLink}
+          isExplaining={modalConfig.show}
+          trickLocation={currentLevel.trickLocation}
         >
-          <LevelComponent onHoverLink={setHoveredLink} />
+          <LevelComponent onHoverLink={setHoveredLink} isExplaining={modalConfig.show} />
         </BrowserFrame>
       </div>
 
