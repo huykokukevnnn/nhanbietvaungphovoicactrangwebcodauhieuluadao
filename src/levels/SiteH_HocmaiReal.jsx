@@ -77,15 +77,40 @@ const SiteH_HocmaiReal = ({ onHoverLink }) => {
       <div className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-2xl font-bold mb-8 border-l-4 border-blue-600 pl-4">Khóa học nổi bật</h2>
         <div className="grid md:grid-cols-4 gap-6">
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden group cursor-pointer hover:shadow-md transition-shadow">
+          {[
+            { 
+              id: 1, 
+              subject: "Môn Toán - Lớp 12", 
+              title: "PEN-C: Ôn luyện toàn diện môn Toán 12 (Thầy Nguyễn Văn Hùng)", 
+              img: "/math_course_cover.png" 
+            },
+            { 
+              id: 2, 
+              subject: "Ngữ Văn - Lớp 12", 
+              title: "PEN-C: Bứt phá điểm 9+ Ngữ Văn THPT (Cô Trần Thị Thu Hà)", 
+              img: "/literature_course_cover.png" 
+            },
+            { 
+              id: 3, 
+              subject: "Tiếng Anh - Lớp 12", 
+              title: "PEN-M: Luyện giải đề Tiếng Anh chuyên sâu (Thầy Phạm Hoàng Nam)", 
+              img: "/english_course_cover.png" 
+            },
+            { 
+              id: 4, 
+              subject: "Sinh Học - Lớp 12", 
+              title: "PEN-I: Hệ thống kiến thức Sinh học cốt lõi (Cô Vũ Thanh Trúc)", 
+              img: "/biology_course_cover.png" 
+            }
+          ].map(course => (
+            <div key={course.id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden group cursor-pointer hover:shadow-md transition-shadow">
               <div className="h-40 bg-gray-200 overflow-hidden relative">
-                <img src={`https://images.unsplash.com/photo-${1500000000000 + i}?auto=format&fit=crop&w=400&q=80`} alt="Course" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img src={course.img} alt={course.subject} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-30%</div>
               </div>
               <div className="p-4">
-                <div className="text-xs text-blue-600 font-bold mb-1">Môn Toán - Lớp 12</div>
-                <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">PEN-C: Ôn luyện toàn diện môn Toán 12 (Thầy Lê Bá Trần Phương)</h3>
+                <div className="text-xs text-blue-600 font-bold mb-1">{course.subject}</div>
+                <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">{course.title}</h3>
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex text-yellow-400 text-xs">★★★★★</div>
                   <span className="text-xs text-gray-500">(1,245 đánh giá)</span>
