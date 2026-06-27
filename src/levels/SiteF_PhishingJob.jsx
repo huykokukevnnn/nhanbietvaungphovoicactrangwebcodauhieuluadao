@@ -1,7 +1,6 @@
 import React from 'react';
-import RedFlag from '../components/RedFlag';
 
-const SiteF_PhishingJob = ({ onStamp, onUnstamp }) => {
+const SiteF_PhishingJob = ({ onHoverLink }) => {
   return (
     <div className="min-h-full bg-gray-50 font-sans text-gray-800">
       {/* Header */}
@@ -28,7 +27,7 @@ const SiteF_PhishingJob = ({ onStamp, onUnstamp }) => {
             <h1 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">Tuyển CTV Học Sinh / Sinh Viên Dịch Thuật, Đánh Máy Tại Nhà</h1>
             
             {/* Red Flag 3: Unrealistic compensation */}
-            <RedFlag id="flag-unrealistic-pay" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+            
               <div className="flex flex-wrap gap-4 mb-6 cursor-pointer group">
                 <div className="bg-green-50 text-green-700 px-4 py-2 rounded-lg font-bold flex items-center gap-2 group-hover:ring-2 group-hover:ring-red-500">
                   <span className="text-xl">💰</span>
@@ -39,7 +38,7 @@ const SiteF_PhishingJob = ({ onStamp, onUnstamp }) => {
                   Part-time tự do
                 </div>
               </div>
-            </RedFlag>
+            
 
             <div className="prose prose-sm max-w-none text-gray-600 space-y-4 border-t border-gray-100 pt-6">
               <h3 className="text-gray-800 font-bold">📌 Mô tả công việc:</h3>
@@ -64,11 +63,11 @@ const SiteF_PhishingJob = ({ onStamp, onUnstamp }) => {
           <div className="bg-white rounded-xl shadow-xl border-t-4 border-green-500 overflow-hidden sticky top-24">
             
             {/* Red Flag 5: Strict dynamic pop-up message (urgency) */}
-            <RedFlag id="flag-urgent-popup" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+            
               <div className="bg-red-50 text-red-600 text-xs font-bold p-3 text-center border-b border-red-100 cursor-pointer animate-pulse">
                 ⚠️ Tài khoản của bạn sẽ bị hủy hồ sơ ứng tuyển nếu không hoàn tất liên kết tài khoản trong vòng 60 giây!
               </div>
-            </RedFlag>
+            
 
             <div className="p-6">
               <h2 className="text-xl font-bold text-gray-800 mb-1">Hồ sơ ứng tuyển</h2>
@@ -104,7 +103,7 @@ const SiteF_PhishingJob = ({ onStamp, onUnstamp }) => {
                 </div>
 
                 {/* Red Flag 1: Requesting confidential items */}
-                <RedFlag id="flag-request-pwd" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+                
                   <div className="cursor-pointer group relative">
                     <label className="block text-xs font-bold text-gray-700 mb-1">
                       Mật khẩu iBanking / OTP <span className="text-red-500">*</span>
@@ -116,9 +115,14 @@ const SiteF_PhishingJob = ({ onStamp, onUnstamp }) => {
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                     </div>
                   </div>
-                </RedFlag>
+                
 
-                <button className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg shadow-md mt-4 transition-colors">
+                <button 
+                    type="submit" 
+                    onMouseEnter={() => onHoverLink('http://api-thuthap-thongtin-khachhang.net/submit-form')}
+                    onMouseLeave={() => onHoverLink('')}
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                  >
                   KÍCH HOẠT NHẬN LƯƠNG
                 </button>
               </form>

@@ -1,7 +1,6 @@
 import React from 'react';
-import RedFlag from '../components/RedFlag';
 
-const SiteB_Garena = ({ onStamp, onUnstamp }) => {
+const SiteB_Garena = ({ onHoverLink }) => {
   return (
     <div className="min-h-full bg-gray-950 text-white flex flex-col font-sans relative overflow-hidden">
       {/* Background decorations */}
@@ -34,7 +33,7 @@ const SiteB_Garena = ({ onStamp, onUnstamp }) => {
         <div className="w-full max-w-5xl mx-auto mt-12 px-4 flex flex-col md:flex-row items-center gap-12">
           
           <div className="flex-1 space-y-6 text-center md:text-left">
-            <RedFlag id="garena-hero" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
+            
               <div className="inline-block px-4 py-1 rounded-full bg-blue-500/20 border border-blue-500/50 text-blue-300 text-sm font-semibold mb-2">
                 SỰ KIỆN MÙA HÈ 2026
               </div>
@@ -48,11 +47,11 @@ const SiteB_Garena = ({ onStamp, onUnstamp }) => {
               <button className="mt-8 px-10 py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black font-black uppercase text-xl rounded-lg shadow-[0_0_20px_rgba(234,179,8,0.4)] transform hover:scale-105 transition-all">
                 Tham gia ngay
               </button>
-            </RedFlag>
+            
           </div>
 
           <div className="flex-1 relative">
-            <RedFlag id="garena-image" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
+            
               {/* Fake hero image using an unsplash placeholder stylized like a game character */}
               <div className="relative w-full aspect-square max-w-md mx-auto">
                 <div className="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full"></div>
@@ -62,13 +61,13 @@ const SiteB_Garena = ({ onStamp, onUnstamp }) => {
                   className="relative z-10 w-full h-full object-cover rounded-2xl shadow-2xl border border-gray-800"
                 />
               </div>
-            </RedFlag>
+            
           </div>
         </div>
 
         {/* Info Cards */}
         <div className="w-full max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-3 gap-6">
-          <RedFlag id="garena-card1" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
+          
             <div className="bg-gray-900/80 backdrop-blur border border-gray-800 p-6 rounded-xl hover:border-gray-600 transition-colors">
               <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl">🎮</span>
@@ -76,9 +75,9 @@ const SiteB_Garena = ({ onStamp, onUnstamp }) => {
               <h3 className="text-xl font-bold mb-2">Đăng nhập tích luỹ</h3>
               <p className="text-gray-400 text-sm">Đăng nhập 7 ngày liên tiếp để nhận Rương Tướng tự chọn.</p>
             </div>
-          </RedFlag>
           
-          <RedFlag id="garena-card2" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
+          
+          
             <div className="bg-gray-900/80 backdrop-blur border border-gray-800 p-6 rounded-xl hover:border-gray-600 transition-colors">
               <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl">⚔️</span>
@@ -86,9 +85,9 @@ const SiteB_Garena = ({ onStamp, onUnstamp }) => {
               <h3 className="text-xl font-bold mb-2">Hoàn thành trận đấu</h3>
               <p className="text-gray-400 text-sm">Tham gia chế độ Xếp hạng để tích luỹ Huy hiệu Mùa Hè.</p>
             </div>
-          </RedFlag>
+          
 
-          <RedFlag id="garena-card3" isReal={true} onStamp={onStamp} onUnstamp={onUnstamp}>
+          
             <div className="bg-gray-900/80 backdrop-blur border border-gray-800 p-6 rounded-xl hover:border-gray-600 transition-colors">
               <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl">🎁</span>
@@ -96,7 +95,7 @@ const SiteB_Garena = ({ onStamp, onUnstamp }) => {
               <h3 className="text-xl font-bold mb-2">Đổi thưởng cực chất</h3>
               <p className="text-gray-400 text-sm">Dùng Huy hiệu để đổi Skin SS cực hiếm tại Cửa hàng sự kiện.</p>
             </div>
-          </RedFlag>
+          
         </div>
       </main>
 

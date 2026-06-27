@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BrowserFrame from './components/BrowserFrame';
-import SystemAlert from './components/SystemAlert';
-import ReportModal from './components/ReportModal';
-import { AppContext } from './AppContext';
+import ExplanationModal from './components/ExplanationModal';
 
 import SiteA_MOET from './levels/SiteA_MOET';
 import SiteB_Garena from './levels/SiteB_Garena';
@@ -12,255 +10,132 @@ import SiteE_PhishingSkin from './levels/SiteE_PhishingSkin';
 import SiteF_PhishingJob from './levels/SiteF_PhishingJob';
 
 const ALL_LEVELS = [
-  { id: 'A', component: SiteA_MOET, isReal: true, url: 'https://moet.gov.vn', name: 'Bộ Giáo dục và Đào tạo', isSecure: true },
-  { id: 'B', component: SiteB_Garena, isReal: true, url: 'https://sukien.lienquan.garena.vn', name: 'Sự kiện Liên Quân', isSecure: true },
-  { id: 'C', component: SiteC_TuoiTre, isReal: true, url: 'https://tuoitre.vn', name: 'Tuổi Trẻ Online', isSecure: true },
-  { id: 'D', component: SiteD_PhishingDocs, isReal: false, url: 'http://thuvientailieu-lop11.net', name: 'Thư viện tài liệu', isSecure: false },
-  { id: 'E', component: SiteE_PhishingSkin, isReal: false, url: 'http://sukien-lienquan-garena.com.vn-nhanqua.top', name: 'Sự kiện Liên Quân', isSecure: false },
-  { id: 'F', component: SiteF_PhishingJob, isReal: false, url: 'http://tuyen-dung-genz-vieclam24h.org', name: 'Việc Làm 24h', isSecure: false }
-];
-
-// Fisher-Yates shuffle algorithm
-const shuffleArray = (array) => {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  { 
+    id: 'A', 
+    component: SiteA_MOET, 
+    isReal: true, 
+    url: 'https://moet.gov.vn', 
+    name: 'Bộ Giáo dục và Đào tạo', 
+    isSecure: true,
+    explanation: 'Đây là trang web chính thức của Bộ Giáo dục và Đào tạo. Tên miền chuẩn xác là <b>moet.gov.vn</b>, có chứng chỉ bảo mật an toàn, và tất cả các nút bấm trên trang đều dẫn về đúng hệ thống của Bộ.'
+  },
+  { 
+    id: 'B', 
+    component: SiteB_Garena, 
+    isReal: false, 
+    url: 'https://sukien.lienquan.garena.vn-nhanqua.top', 
+    name: 'Sự kiện Liên Quân', 
+    isSecure: true,
+    explanation: 'Kẻ gian sử dụng thủ đoạn <b>Tên miền phụ (Subdomain Tricking)</b>. Tên miền thực sự của trang web này là <b>vn-nhanqua.top</b>. Chuỗi <i>sukien.lienquan.garena</i> chỉ là tên miền phụ được tạo ra để đánh lừa mắt bạn.'
+  },
+  { 
+    id: 'C', 
+    component: SiteC_TuoiTre, 
+    isReal: false, 
+    url: 'https://tu0itre.vn', 
+    name: 'Tuổi Trẻ Online', 
+    isSecure: true,
+    explanation: 'Đây là thủ đoạn <b>Đăng ký sai chính tả (Typosquatting)</b>. Nhìn kỹ vào thanh địa chỉ, chữ <b>"o"</b> đã bị kẻ gian thay bằng số <b>"0"</b> (tu0itre thay vì tuoitre). Giao diện có thể copy 100%, nhưng tên miền thì không thể trùng lặp.'
+  },
+  { 
+    id: 'D', 
+    component: SiteD_PhishingDocs, 
+    isReal: false, 
+    url: 'https://thuvientailieu.vn', 
+    name: 'Thư viện tài liệu', 
+    isSecure: true,
+    explanation: 'URL nhìn có vẻ an toàn, nhưng thủ đoạn nằm ở nút bấm! Khi bạn <b>rê chuột (hover)</b> vào nút "TẢI NHANH X10", hãy nhìn xuống góc trái trình duyệt, bạn sẽ thấy link tải thực chất trỏ tới một file mã độc <b>.exe</b> độc hại thay vì file PDF.'
+  },
+  { 
+    id: 'E', 
+    component: SiteE_PhishingSkin, 
+    isReal: false, 
+    url: 'https://sukien.lienquan.garena.vn', 
+    name: 'Sự kiện Liên Quân', 
+    isSecure: true, // It pretends to be secure main site, but the modal inside is fake
+    explanation: 'Thanh URL chính là thật, NHƯNG khung đăng nhập Facebook lại là giả mạo! Kẻ xấu sử dụng kỹ thuật <b>Browser-in-Browser (Trình duyệt lồng Trình duyệt)</b>. Khung đăng nhập đó chỉ là một bức tranh tĩnh được vẽ bằng mã code, nó không phải là cửa sổ pop-up thật của trình duyệt.'
+  },
+  { 
+    id: 'F', 
+    component: SiteF_PhishingJob, 
+    isReal: false, 
+    url: 'https://vieclam24h.vn-tuyendung.com', 
+    name: 'Việc Làm 24h', 
+    isSecure: true,
+    explanation: 'Một trang web lừa đảo nhằm đánh cắp thông tin ngân hàng. Thứ nhất, tên miền thực sự là <b>vn-tuyendung.com</b> chứ không phải vieclam24h. Thứ hai, <b>TUYỆT ĐỐI KHÔNG</b> có nhà tuyển dụng uy tín nào lại yêu cầu bạn nhập Mật khẩu iBanking hay mã OTP cả!'
   }
-  return newArray;
-};
+];
 
 function App() {
   const [sequence, setSequence] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hoveredLink, setHoveredLink] = useState('');
   
-  // Game states
-  const [stampedFlags, setStampedFlags] = useState([]);
-  const [isSelectMode, setIsSelectMode] = useState(false);
-  const [isReported, setIsReported] = useState(false);
-  
-  // Score tracking
-  const [scoreLog, setScoreLog] = useState([]);
+  // Modal states
+  const [modalConfig, setModalConfig] = useState({ show: false, isCorrect: false, reason: '' });
   const [isGameOver, setIsGameOver] = useState(false);
-  
-  // Modals
-  const [alertConfig, setAlertConfig] = useState({ show: false, title: '', message: '', type: 'info', onNext: null });
-  const [showReportModal, setShowReportModal] = useState(false);
 
   useEffect(() => {
-    setSequence(shuffleArray(ALL_LEVELS));
+    // Basic shuffle
+    const shuffled = [...ALL_LEVELS].sort(() => Math.random() - 0.5);
+    setSequence(shuffled);
   }, []);
 
   const currentLevel = sequence[currentIndex];
 
-  const addDeduction = (points, reason) => {
-    setScoreLog(prev => [...prev, { points, reason, levelName: currentLevel.name }]);
-  };
-
-  const handleStamp = (flagId, isCorrect) => {
-    if (!stampedFlags.includes(flagId)) {
-      setStampedFlags([...stampedFlags, flagId]);
-    }
-  };
-
-  const handleUnstamp = (flagId) => {
-    setStampedFlags(stampedFlags.filter(id => id !== flagId));
-  };
-
-  const handleTrap = () => {
-    // Sập bẫy lừa đảo (Tương tác nút tải file/đăng nhập khi chưa khoanh vùng)
-    addDeduction(-25, "Tương tác nguy hiểm: Sập bẫy lừa đảo");
-    showAlert(
-      'Cảnh báo!',
-      'Bạn đã sập bẫy của các đối tượng lừa đảo.',
-      'error',
-      nextLevel
-    );
-  };
-
-  const handleReportClick = () => {
-    if (stampedFlags.length === 0) {
-      showAlert('Cảnh báo', 'Bạn chưa đưa ra bằng chứng khả nghi', 'warning');
-    } else {
-      setShowReportModal(true);
-    }
-  };
-
-  const handleReportSubmit = () => {
-    setShowReportModal(false);
-    setIsReported(true);
-    showAlert(
-      'Thành công',
-      'Đã báo cáo thành công! Lưu ý: Trên trang này có thể vẫn còn một số điểm nghi vấn khác (những điểm chưa được khoanh đỏ). Hãy chú ý hơn ở các lần sau nhé!',
-      'success'
-    );
-  };
-
-  const handleConfirm = () => {
-    if (!currentLevel) return;
-
-    if (currentLevel.isReal) {
-      // Đối với trang web thật
-      if (stampedFlags.length > 0 || isReported) {
-        addDeduction(-20, "Báo cáo sai trang web thật");
-        showAlert(
-          'Đánh giá chưa chính xác',
-          'Đây là trang web thật, bạn đã quá đa nghi rồi',
-          'error',
-          nextLevel
-        );
-      } else {
-        showAlert(
-          'Tuyệt vời!',
-          'Bạn đã tin tưởng đúng trang web',
-          'success',
-          nextLevel
-        );
-      }
-    } else {
-      // Đối với trang web giả mạo
-      if (stampedFlags.length === 0) {
-        // Bỏ sót hoàn toàn trang lừa đảo
-        addDeduction(-30, "Không nhận diện được trang web lừa đảo");
-        showAlert(
-          'Đánh giá chưa chính xác',
-          'Đây là một trang web lừa đảo bạn đã không hoàn thành việc chọn lọc',
-          'error',
-          nextLevel
-        );
-      } else {
-        // Tính điểm thiếu sót (Tối đa 5 cờ)
-        const missed = Math.max(0, 5 - stampedFlags.length);
-        if (missed > 0) {
-          addDeduction(-3 * missed, `Bỏ sót ${missed} điểm khả nghi`);
-        }
-
-        if (isReported) {
-          showAlert(
-            'Xuất sắc!',
-            'Chúc mừng bạn đã lựa chọn đúng',
-            'success',
-            nextLevel
-          );
-        } else {
-          // Đã đánh dấu nhưng chưa báo cáo
-          addDeduction(-10, "Phát hiện điểm khả nghi nhưng quên gửi Báo Cáo");
-          showAlert(
-            'Chú ý!',
-            'Bạn đã quên báo cáo trang web có hành vi lừa đảo',
-            'warning',
-            nextLevel
-          );
-        }
-      }
-    }
+  const handleChoice = (isChoosingReal) => {
+    const isCorrect = (isChoosingReal === currentLevel.isReal);
+    
+    setModalConfig({
+      show: true,
+      isCorrect,
+      reason: currentLevel.explanation
+    });
   };
 
   const nextLevel = () => {
+    setModalConfig({ show: false, isCorrect: false, reason: '' });
+    setHoveredLink('');
+    
     if (currentIndex + 1 < sequence.length) {
       setCurrentIndex(currentIndex + 1);
-      // Reset state for new level
-      setStampedFlags([]);
-      setIsSelectMode(false);
-      setIsReported(false);
     } else {
-      // Game Over
       setIsGameOver(true);
     }
   };
 
   const restartGame = () => {
-    setSequence(shuffleArray(ALL_LEVELS));
+    const shuffled = [...ALL_LEVELS].sort(() => Math.random() - 0.5);
+    setSequence(shuffled);
     setCurrentIndex(0);
-    setStampedFlags([]);
-    setIsSelectMode(false);
-    setIsReported(false);
-    setScoreLog([]);
     setIsGameOver(false);
-  };
-
-  const showAlert = (title, message, type, callback) => {
-    setAlertConfig({
-      show: true,
-      title,
-      message,
-      type,
-      onNext: () => {
-        setAlertConfig(prev => ({ ...prev, show: false }));
-        if (callback) callback();
-      }
-    });
   };
 
   if (sequence.length === 0) return <div className="h-screen flex items-center justify-center bg-gray-100 text-gray-800">Đang tải...</div>;
 
-  // Render Game Over Summary Screen
+  // Render Game Over Screen
   if (isGameOver) {
-    const finalScore = Math.max(0, 100 + scoreLog.reduce((acc, log) => acc + log.points, 0));
-    
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 py-12 font-sans">
         <div className="bg-white rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden animate-in zoom-in-95 duration-500 border border-gray-200">
-          
-          {/* Header */}
-          <div className={`p-8 text-center text-white ${finalScore >= 80 ? 'bg-green-600' : finalScore >= 50 ? 'bg-yellow-500' : 'bg-red-600'}`}>
-            <h1 className="text-3xl md:text-4xl font-black mb-2 uppercase">BÁO CÁO KẾT QUẢ</h1>
-            <p className="text-lg opacity-90">Kỹ năng nhận diện trang web lừa đảo</p>
-            
-            <div className="mt-8 relative inline-block">
-              <div className="w-40 h-40 bg-white rounded-full flex items-center justify-center mx-auto shadow-inner text-5xl font-black">
-                <span className={finalScore >= 80 ? 'text-green-600' : finalScore >= 50 ? 'text-yellow-500' : 'text-red-600'}>
-                  {finalScore}
-                </span>
-              </div>
-              <span className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
-                ĐIỂM SỐ
-              </span>
-            </div>
-            
-            <h2 className="mt-8 text-xl font-bold">
-              {finalScore >= 80 ? '🎉 Rất xuất sắc! Bạn là chuyên gia bảo mật.' : 
-               finalScore >= 50 ? '👍 Khá tốt! Nhưng vẫn cần cẩn thận hơn trên không gian mạng.' : 
-               '⚠️ Nguy hiểm! Bạn rất dễ bị lừa đảo trên Internet.'}
-            </h2>
+          <div className="p-12 text-center bg-blue-600 text-white">
+            <h1 className="text-4xl font-black mb-4 uppercase">Hoàn thành Khóa học!</h1>
+            <p className="text-xl opacity-90">Bạn đã nắm được các kỹ năng cơ bản để nhận diện trang web lừa đảo.</p>
           </div>
-
-          {/* Details */}
-          <div className="p-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-              <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
-              Chi tiết các lỗi bị trừ điểm:
-            </h3>
-            
-            {scoreLog.length === 0 ? (
-              <div className="bg-green-50 border border-green-200 text-green-800 rounded-xl p-6 text-center font-medium">
-                Hoàn hảo! Bạn không mắc phải bất kỳ sai sót nào trong toàn bộ bài tập.
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {scoreLog.map((log, index) => (
-                  <div key={index} className="flex items-start gap-4 p-4 rounded-xl border border-red-100 bg-red-50/50">
-                    <div className="w-12 h-12 rounded-full bg-red-100 text-red-600 font-bold flex items-center justify-center flex-shrink-0 text-lg">
-                      {log.points}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-800">{log.reason}</h4>
-                      <p className="text-sm text-gray-500 mt-1">Tại: {log.levelName}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div className="mt-10 flex justify-center">
-              <button 
-                onClick={restartGame}
-                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg transition-transform hover:scale-105 flex items-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-                CHƠI LẠI TỪ ĐẦU
-              </button>
-            </div>
+          <div className="p-12 text-center">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Hãy luôn ghi nhớ:</h2>
+            <ul className="text-left max-w-lg mx-auto space-y-4 text-lg text-gray-700 mb-10 list-disc pl-6">
+              <li>Kiểm tra kỹ <b>Tên miền (Domain)</b> trước khi đăng nhập.</li>
+              <li>Cẩn thận với <b>Tên miền phụ (Subdomain)</b> giả mạo thương hiệu.</li>
+              <li><b>Rê chuột (Hover)</b> vào các nút/link để xem địa chỉ thật.</li>
+              <li>Không bao giờ nhập <b>Mật khẩu/OTP</b> ở những nơi đáng ngờ.</li>
+            </ul>
+            <button 
+              onClick={restartGame}
+              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg transition-transform hover:scale-105 text-lg"
+            >
+              CHƠI LẠI TỪ ĐẦU
+            </button>
           </div>
         </div>
       </div>
@@ -270,32 +145,50 @@ function App() {
   const LevelComponent = currentLevel.component;
 
   return (
-    <AppContext.Provider value={{ isSelectMode, setIsSelectMode, handleTrap }}>
-      <SystemAlert 
-        show={alertConfig.show} 
-        title={alertConfig.title} 
-        message={alertConfig.message} 
-        type={alertConfig.type} 
-        onClose={alertConfig.onNext} 
+    <div className="h-screen w-full flex flex-col bg-gray-100 relative">
+      <ExplanationModal 
+        show={modalConfig.show} 
+        isCorrect={modalConfig.isCorrect} 
+        reason={modalConfig.reason} 
+        onNext={nextLevel} 
       />
-      <ReportModal 
-        show={showReportModal} 
-        onClose={() => setShowReportModal(false)} 
-        onSubmit={handleReportSubmit} 
-      />
-      <BrowserFrame 
-        key={currentLevel.id}
-        url={currentLevel.url}
-        isSecure={currentLevel.isSecure}
-        siteName={currentLevel.name}
-        onConfirm={handleConfirm}
-        onStamp={handleStamp}
-        onUnstamp={handleUnstamp}
-        onReport={handleReportClick}
-      >
-        <LevelComponent onStamp={handleStamp} onUnstamp={handleUnstamp} />
-      </BrowserFrame>
-    </AppContext.Provider>
+      
+      {/* Browser Area */}
+      <div className="flex-1 overflow-hidden relative">
+        <BrowserFrame 
+          key={currentLevel.id}
+          url={currentLevel.url}
+          isSecure={currentLevel.isSecure}
+          siteName={currentLevel.name}
+          hoveredLink={hoveredLink}
+        >
+          <LevelComponent onHoverLink={setHoveredLink} />
+        </BrowserFrame>
+      </div>
+
+      {/* Floating Decision Buttons */}
+      {!modalConfig.show && (
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 bg-white/90 backdrop-blur-md px-8 py-5 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.15)] border border-gray-200 z-50 animate-in slide-in-from-bottom-10">
+          <span className="font-bold text-gray-600 mr-2 text-lg">Trang web này là:</span>
+          
+          <button 
+            onClick={() => handleChoice(true)}
+            className="flex items-center gap-2 px-6 py-3 bg-green-50 text-green-700 border-2 border-green-500 hover:bg-green-500 hover:text-white font-bold rounded-full transition-all hover:scale-105 text-lg"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            AN TOÀN
+          </button>
+          
+          <button 
+            onClick={() => handleChoice(false)}
+            className="flex items-center gap-2 px-6 py-3 bg-red-50 text-red-700 border-2 border-red-500 hover:bg-red-500 hover:text-white font-bold rounded-full transition-all hover:scale-105 text-lg"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            LỪA ĐẢO
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 

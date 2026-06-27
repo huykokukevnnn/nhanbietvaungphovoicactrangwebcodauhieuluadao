@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import RedFlag from '../components/RedFlag';
 
-const SiteD_PhishingDocs = ({ onStamp, onUnstamp }) => {
+const SiteD_PhishingDocs = ({ onHoverLink }) => {
   const [isDownloading, setIsDownloading] = useState(false);
 
   const handleDownload = () => {
@@ -14,11 +13,11 @@ const SiteD_PhishingDocs = ({ onStamp, onUnstamp }) => {
   return (
     <div className="min-h-full bg-blue-50/50 font-sans text-gray-800 relative">
       {/* Background Tab simulation (Red Flag 3: Silent background redirection tab) */}
-      <RedFlag id="flag-bg-tab" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+      
         <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-gray-200 border border-gray-300 rounded-t-lg -z-10 opacity-50 flex items-center px-4 text-xs font-mono text-gray-500 truncate cursor-pointer hover:opacity-100 transition-opacity">
            Đang tải hướng dẫn... (http://ads.malicious-redirect.net/trigger)
         </div>
-      </RedFlag>
+      
 
       {/* Header */}
       <header className="bg-white border-b border-blue-200 shadow-sm py-4">
@@ -46,12 +45,16 @@ const SiteD_PhishingDocs = ({ onStamp, onUnstamp }) => {
           <p className="text-gray-500 mb-6">Định dạng: PDF | Dung lượng: 4.5 MB | Lượt tải: 45,912</p>
 
           {/* Red Flag 5: The "Tải nhanh bằng phần mềm hỗ trợ" action button */}
-          <RedFlag id="flag-download-manager" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
-            <button className="w-full mb-4 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+          
+            <button 
+              onMouseEnter={() => onHoverLink('http://hacker-server.net/payloads/download-manager.exe')} 
+              onMouseLeave={() => onHoverLink('')}
+              className="w-full mb-4 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+            >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
               TẢI NHANH X10 (DÙNG PHẦN MỀM HỖ TRỢ)
             </button>
-          </RedFlag>
+          
 
           {/* Standard Download */}
           <button 
@@ -64,7 +67,7 @@ const SiteD_PhishingDocs = ({ onStamp, onUnstamp }) => {
           {/* Download Notification Panel - Red Flag 2: System alert showing .exe */}
           {isDownloading && (
             <div className="absolute bottom-0 left-0 right-0 bg-gray-800 text-white p-4 animate-in slide-in-from-bottom-10">
-              <RedFlag id="flag-exe-download" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+              
                 <div className="flex items-center justify-between cursor-pointer">
                   <div className="flex items-center gap-3">
                     <svg className="w-6 h-6 text-blue-400 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
@@ -74,7 +77,7 @@ const SiteD_PhishingDocs = ({ onStamp, onUnstamp }) => {
                     </div>
                   </div>
                 </div>
-              </RedFlag>
+              
             </div>
           )}
         </div>
@@ -107,12 +110,12 @@ const SiteD_PhishingDocs = ({ onStamp, onUnstamp }) => {
       <footer className="mt-12 py-8 bg-gray-900 text-gray-400 text-sm text-center">
         <div className="max-w-4xl mx-auto px-4">
           <p>© 2026 Thư Viện Tài Liệu - Nơi chia sẻ tri thức miễn phí.</p>
-          <RedFlag id="flag-footer-sponsor" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+          
             <div className="mt-4 p-2 bg-gray-800 rounded inline-block cursor-pointer hover:bg-gray-700">
               <span className="text-xs">Phần mềm được tài trợ bởi: </span>
               <span className="text-yellow-500 font-bold ml-1">KUBET - NHÀ CÁI CÁ ĐỘ TRỰC TUYẾN SỐ 1</span>
             </div>
-          </RedFlag>
+          
         </div>
       </footer>
     </div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import RedFlag from '../components/RedFlag';
 
-const SiteE_PhishingSkin = ({ onStamp, onUnstamp }) => {
+const SiteE_PhishingSkin = ({ onHoverLink }) => {
   const [showFBModal, setShowFBModal] = useState(false);
   const [timeLeft, setTimeLeft] = useState(165); // 02:45
 
@@ -24,13 +23,13 @@ const SiteE_PhishingSkin = ({ onStamp, onUnstamp }) => {
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-red-900/30 to-black pointer-events-none z-0"></div>
 
       {/* Red Flag 4: Fake text feed animation crawling on top */}
-      <RedFlag id="flag-fake-logs" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+      
         <div className="absolute top-0 left-0 w-full h-8 bg-black/80 z-20 overflow-hidden flex items-center border-b border-gray-800 cursor-pointer">
           <div className="whitespace-nowrap animate-[marquee_15s_linear_infinite] text-xs text-green-400 font-mono tracking-wider">
             [SYS] User_9981 vừa nhận Rương Trang Phục SS --- [SYS] Nam_Pro_2k6 vừa quay trúng Raz Siêu Việt --- [SYS] HoaHao_123 nhận 5000 Quân Huy --- [SYS] Anh_Duy_Tung vừa nhận Ngộ Không Nhóc Tì --- [SYS]
           </div>
         </div>
-      </RedFlag>
+      
       
       {/* Hero Section */}
       <main className="relative z-10 flex-1 flex flex-col items-center pt-16">
@@ -40,12 +39,12 @@ const SiteE_PhishingSkin = ({ onStamp, onUnstamp }) => {
           </h1>
 
           {/* Red Flag 2: Aggressive psychological pressure element (Countdown clock) */}
-          <RedFlag id="flag-pressure-clock" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+          
             <div className="inline-block bg-red-600/20 border-2 border-red-500 px-6 py-2 rounded-full mb-8 cursor-pointer hover:bg-red-600/40 transition-colors">
               <span className="text-red-400 font-bold uppercase mr-2">Sự kiện kết thúc sau:</span>
               <span className="text-2xl font-black text-white tracking-widest">{formatTime(timeLeft)}</span>
             </div>
-          </RedFlag>
+          
           
           {/* Wheel/Spin area placeholder */}
           <div className="relative w-64 h-64 mx-auto mb-8 animate-[spin_10s_linear_infinite] opacity-80">
@@ -64,7 +63,7 @@ const SiteE_PhishingSkin = ({ onStamp, onUnstamp }) => {
 
         {/* Red Flag 5: Fake static comment widget below the fold */}
         <div className="w-full max-w-4xl mx-auto mt-16 px-4 pb-12">
-          <RedFlag id="flag-static-comments" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+          
             <div className="bg-white rounded-lg p-4 cursor-pointer hover:ring-2 hover:ring-red-500">
               {/* This mimics the exact look of an FB comment widget but is entirely static HTML trying to look like a plugin */}
               <div className="flex items-center justify-between border-b border-gray-200 pb-2 mb-4">
@@ -87,7 +86,7 @@ const SiteE_PhishingSkin = ({ onStamp, onUnstamp }) => {
               </div>
               <div className="text-xs text-gray-400 pl-12 mt-1">Thích · Phản hồi · 12 phút trước</div>
             </div>
-          </RedFlag>
+          
         </div>
       </main>
 
@@ -105,7 +104,7 @@ const SiteE_PhishingSkin = ({ onStamp, onUnstamp }) => {
             </button>
 
             {/* Red Flag 3: Mini address bar displaying local IP */}
-            <RedFlag id="flag-fake-fb-url" isReal={false} onStamp={onStamp} onUnstamp={onUnstamp}>
+            
               <div className="bg-white border-b border-gray-300 p-2 flex items-center gap-2 cursor-pointer">
                 <div className="flex gap-1">
                   <div className="w-3 h-3 rounded-full bg-red-400" onClick={(e) => {e.stopPropagation(); setShowFBModal(false)}}></div>
@@ -117,7 +116,7 @@ const SiteE_PhishingSkin = ({ onStamp, onUnstamp }) => {
                   192.168.1.5/login.php
                 </div>
               </div>
-            </RedFlag>
+            
 
             <div className="p-6 bg-white flex flex-col items-center">
               <svg className="w-16 h-16 text-[#1877f2] mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
