@@ -18,14 +18,17 @@ const SiteJ_HocStemMienPhi = ({ onHoverLink }) => {
       <div className="flex flex-col md:flex-row relative min-h-[600px] w-full max-w-[1400px] mx-auto">
         {/* Left Content */}
         <div className="w-full md:w-1/2 p-10 md:p-16 lg:p-24 flex flex-col justify-center">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="text-2xl font-bold text-[#145699] flex items-center gap-2">
-              <span className="text-orange-500 font-black text-3xl">S</span> KDI
-              <span className="text-xs font-normal">education</span>
-            </div>
-            <div className="text-2xl font-bold text-orange-500 flex items-center gap-1">
-              KDC <span className="text-xs font-normal">EDUCATION</span>
-            </div>
+          <div className="flex items-center gap-6 mb-8">
+            <img 
+              src="https://w.ladicdn.com/s450x400/58f1e06fab2e17927997c5f5/kdi-new-01-20220915142240-6n_xq.png" 
+              alt="KDI Education" 
+              className="h-10 object-contain" 
+            />
+            <img 
+              src="https://w.ladicdn.com/s400x350/58f1e06fab2e17927997c5f5/kdc-education_logo_cs5-01-20210729014313.png" 
+              alt="KDC Education" 
+              className="h-10 object-contain" 
+            />
           </div>
           
           <h2 className="text-xl md:text-2xl font-bold text-gray-600 mb-4">TẶNG 10.000 TÀI KHOẢN<br/>THAM GIA KHÓA HỌC</h2>
