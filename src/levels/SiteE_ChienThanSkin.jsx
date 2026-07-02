@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 
-const SiteE_PhishingSkin = ({ onHoverLink, isExplaining }) => {
+const SiteE_ChienThanSkin = ({ onHoverLink, isExplaining }) => {
   const [showFBModal, setShowFBModal] = useState(false);
 
   return (
     <div className="min-h-full bg-gray-950 text-white flex flex-col font-sans relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-600/20 rounded-full blur-[120px]"></div>
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-600/20 rounded-full blur-[120px]"></div>
-
+      <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-orange-900/40 to-transparent pointer-events-none z-0"></div>
+      
       {/* Header */}
-      <header className="border-b border-gray-800 bg-black/50 backdrop-blur-md sticky top-0 z-10">
+      <header className="relative z-10 border-b border-gray-800 bg-black/60 backdrop-blur-md sticky top-0">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <span className="font-black text-xl tracking-tighter text-blue-500">Garena<span className="text-white">LiênQuân</span></span>
-            <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-400">
-              <a href="#" className="hover:text-white transition-colors">Trang chủ</a>
-              <a href="#" className="text-white">Sự kiện</a>
-              <a href="#" className="hover:text-white transition-colors">Cẩm nang</a>
-              <a href="#" className="hover:text-white transition-colors">Giải đấu</a>
+          <div className="flex items-center gap-6">
+            <div className="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-500">
+              CHIẾN THẦN
+            </div>
+            <nav className="hidden md:flex gap-6 text-sm font-semibold uppercase tracking-wide">
+              <span className="text-yellow-400 cursor-pointer">Sự kiện</span>
+              <span className="text-gray-300 hover:text-white cursor-pointer transition-colors">Tin tức</span>
+              <span className="text-gray-300 hover:text-white cursor-pointer transition-colors">Giải đấu</span>
+              <span className="text-gray-300 hover:text-white cursor-pointer transition-colors">Cộng đồng</span>
             </nav>
           </div>
           <div className="flex items-center gap-4">
-            <button className="text-sm font-medium hover:text-blue-400 transition-colors">Nạp thẻ</button>
-            <button className="bg-white text-black px-4 py-1.5 rounded-full text-sm font-bold hover:bg-gray-200 transition-colors">Tải game</button>
+            <button className="text-sm font-bold bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-2 rounded-full transition-transform hover:scale-105">
+              Tải game
+            </button>
           </div>
         </div>
       </header>
@@ -34,22 +36,22 @@ const SiteE_PhishingSkin = ({ onHoverLink, isExplaining }) => {
         <div className="w-full max-w-5xl mx-auto px-4 flex flex-col items-center gap-8">
           
           <div className="text-center space-y-6 max-w-2xl mx-auto">
-            <div className="inline-block px-4 py-1 rounded-full bg-blue-500/20 border border-blue-500/50 text-blue-300 text-sm font-semibold mb-2 shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+            <div className="inline-block px-4 py-1 rounded-full bg-orange-500/20 border border-orange-500/50 text-orange-300 text-sm font-semibold mb-2 shadow-[0_0_15px_rgba(249,115,22,0.5)]">
               SỰ KIỆN MÙA HÈ 2026
             </div>
             
             <h1 className="text-5xl md:text-7xl font-black mb-4 tracking-tight drop-shadow-2xl">
-              ĐĂNG NHẬP <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">NHẬN QUÀ</span>
+              ĐĂNG NHẬP <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-500">NHẬN QUÀ</span>
             </h1>
             
             <p className="text-gray-400 text-lg">
-              Tham gia ngay chuỗi sự kiện lớn nhất mùa hè. Đăng nhập tài khoản để nhận trang phục độc quyền cấp bậc SS hoàn toàn miễn phí.
+              Tham gia ngay chuỗi sự kiện lớn nhất mùa hè. Đăng nhập tài khoản để nhận trang phục độc quyền cấp bậc Thần Thoại hoàn toàn miễn phí.
             </p>
 
             <div className="pt-8">
               <button 
                 onClick={() => setShowFBModal(true)}
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-bold text-lg hover:from-blue-500 hover:to-purple-500 transition-all shadow-[0_0_40px_rgba(59,130,246,0.4)] hover:shadow-[0_0_60px_rgba(168,85,247,0.6)] hover:scale-105 flex items-center justify-center gap-3 mx-auto"
+                className="group relative px-8 py-4 bg-gradient-to-r from-yellow-600 to-orange-600 rounded-full font-bold text-lg hover:from-yellow-500 hover:to-orange-500 text-black transition-all shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:shadow-[0_0_60px_rgba(249,115,22,0.6)] hover:scale-105 flex items-center justify-center gap-3 mx-auto"
               >
                 <span>ĐĂNG NHẬP ĐỂ NHẬN QUÀ</span>
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
@@ -63,13 +65,20 @@ const SiteE_PhishingSkin = ({ onHoverLink, isExplaining }) => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 bg-black py-8 mt-12 relative z-0">
-        <div className="max-w-6xl mx-auto px-4 text-center text-sm text-gray-500 space-y-4">
-          <p>© 2026 Garena. Bản quyền thuộc về Công ty TNHH Liên Quân Mobile. Thiết kế bởi Garena Vietnam.</p>
-          <div className="flex justify-center gap-4">
-            <a href="#" className="hover:text-gray-300">Điều khoản dịch vụ</a>
-            <a href="#" className="hover:text-gray-300">Chính sách bảo mật</a>
-            <a href="#" className="hover:text-gray-300">Hỗ trợ khách hàng</a>
+      <footer className="relative z-10 border-t border-gray-800 bg-black py-8 mt-auto">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+          <div className="flex items-center gap-4">
+            <div className="text-xl font-black text-white">CTHT STUDIO</div>
+            <div className="w-px h-8 bg-gray-800"></div>
+            <div>
+              <p>© 2026 CTHT Studio. Đã đăng ký bản quyền.</p>
+              <p>Công ty Cổ phần Giải trí Chiến Thần</p>
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <span className="hover:text-white cursor-pointer">Điều khoản</span>
+            <span className="hover:text-white cursor-pointer">Bảo mật</span>
+            <span className="hover:text-white cursor-pointer">Hỗ trợ</span>
           </div>
         </div>
       </footer>
@@ -141,4 +150,4 @@ const SiteE_PhishingSkin = ({ onHoverLink, isExplaining }) => {
   );
 };
 
-export default SiteE_PhishingSkin;
+export default SiteE_ChienThanSkin;

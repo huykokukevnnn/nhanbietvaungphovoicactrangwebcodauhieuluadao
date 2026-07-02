@@ -2,46 +2,24 @@ import React, { useState, useEffect } from 'react';
 import BrowserFrame from './components/BrowserFrame';
 import ExplanationModal from './components/ExplanationModal';
 
-import SiteA_MOET from './levels/SiteA_MOET';
-import SiteB_Garena from './levels/SiteB_Garena';
-import SiteC_TuoiTre from './levels/SiteC_TuoiTre';
+import SiteB_ChienThan from './levels/SiteB_ChienThan';
 import SiteD_PhishingDocs from './levels/SiteD_PhishingDocs';
-import SiteE_PhishingSkin from './levels/SiteE_PhishingSkin';
-import SiteF_PhishingJob from './levels/SiteF_PhishingJob';
-import SiteG_FacebookReal from './levels/SiteG_FacebookReal';
-import SiteH_HocmaiReal from './levels/SiteH_HocmaiReal';
-import SiteI_TiktokFake from './levels/SiteI_TiktokFake';
+import SiteE_ChienThanSkin from './levels/SiteE_ChienThanSkin';
+import SiteF_Parttime247 from './levels/SiteF_Parttime247';
+import SiteH_EduMaster from './levels/SiteH_EduMaster';
+import SiteI_ReelFake from './levels/SiteI_ReelFake';
+import SiteJ_HocStemMienPhi from './levels/SiteJ_HocStemMienPhi';
 
 const ALL_LEVELS = [
   { 
-    id: 'A', 
-    component: SiteA_MOET, 
-    isReal: true, 
-    url: 'https://moet.gov.vn', 
-    name: 'Bộ Giáo dục và Đào tạo', 
-    isSecure: true,
-    trickLocation: 'none',
-    explanation: 'Đây là trang web chính thức của Bộ Giáo dục và Đào tạo. Tên miền chuẩn xác là <b>moet.gov.vn</b>, có chứng chỉ bảo mật an toàn, và tất cả các nút bấm trên trang đều dẫn về đúng hệ thống của Bộ.'
-  },
-  { 
     id: 'B', 
-    component: SiteB_Garena, 
+    component: SiteB_ChienThan, 
     isReal: false, 
-    url: 'https://sukien.lienquan.garena.vn-nhanqua.top', 
-    name: 'Sự kiện Liên Quân', 
+    url: 'https://sukien.chienthan.vn-nhanqua.top', 
+    name: 'Sự kiện Chiến Thần', 
     isSecure: true,
     trickLocation: 'url',
-    explanation: 'Kẻ gian sử dụng thủ đoạn <b>Tên miền phụ (Subdomain Tricking)</b>. Tên miền thực sự của trang web này là <b>vn-nhanqua.top</b>. Chuỗi <i>sukien.lienquan.garena</i> chỉ là tên miền phụ được tạo ra để đánh lừa mắt bạn.'
-  },
-  { 
-    id: 'C', 
-    component: SiteC_TuoiTre, 
-    isReal: false, 
-    url: 'https://tu0itre.vn', 
-    name: 'Tuổi Trẻ Online', 
-    isSecure: true,
-    trickLocation: 'url',
-    explanation: 'Đây là thủ đoạn <b>Đăng ký sai chính tả (Typosquatting)</b>. Nhìn kỹ vào thanh địa chỉ, chữ <b>"o"</b> đã bị kẻ gian thay bằng số <b>"0"</b> (tu0itre thay vì tuoitre). Giao diện có thể copy 100%, nhưng tên miền thì không thể trùng lặp.'
+    explanation: 'Kẻ gian sử dụng thủ đoạn <b>Tên miền phụ (Subdomain Tricking)</b>. Tên miền thực sự của trang web này là <b>vn-nhanqua.top</b>. Chuỗi <i>sukien.chienthan.vn</i> chỉ là tên miền phụ được tạo ra để đánh lừa mắt bạn.'
   },
   { 
     id: 'D', 
@@ -55,53 +33,53 @@ const ALL_LEVELS = [
   },
   { 
     id: 'E', 
-    component: SiteE_PhishingSkin, 
+    component: SiteE_ChienThanSkin, 
     isReal: false, 
-    url: 'https://sukien.lienquan.garena.vn', 
-    name: 'Sự kiện Liên Quân', 
-    isSecure: true, // It pretends to be secure main site, but the modal inside is fake
+    url: 'https://sukien.chienthan.vn', 
+    name: 'Sự kiện Chiến Thần', 
+    isSecure: true, 
     trickLocation: 'content',
-    explanation: 'Thanh URL chính là thật, NHƯNG khung đăng nhập Facebook lại là giả mạo! Kẻ xấu sử dụng kỹ thuật <b>Browser-in-Browser (Trình duyệt lồng Trình duyệt)</b>. Khung đăng nhập đó chỉ là một bức tranh tĩnh được vẽ bằng mã code, nó không phải là cửa sổ pop-up thật của trình duyệt.'
+    explanation: 'Thanh URL chính là thật, NHƯNG khung đăng nhập bên trong lại là giả mạo! Kẻ xấu sử dụng kỹ thuật <b>Browser-in-Browser (Trình duyệt lồng Trình duyệt)</b>. Khung đăng nhập đó chỉ là một bức tranh tĩnh được vẽ bằng mã code, nó không phải là cửa sổ pop-up thật của trình duyệt.'
   },
   { 
     id: 'F', 
-    component: SiteF_PhishingJob, 
+    component: SiteF_Parttime247, 
     isReal: false, 
-    url: 'https://vieclam24h.vn-tuyendung.com', 
-    name: 'Việc Làm 24h', 
+    url: 'https://parttime247.vn-tuyendung.com', 
+    name: 'Parttime 24/7', 
     isSecure: true,
     trickLocation: 'url',
-    explanation: 'Một trang web lừa đảo nhằm đánh cắp thông tin ngân hàng. Thứ nhất, tên miền thực sự là <b>vn-tuyendung.com</b> chứ không phải vieclam24h. Thứ hai, <b>TUYỆT ĐỐI KHÔNG</b> có nhà tuyển dụng uy tín nào lại yêu cầu bạn nhập Mật khẩu iBanking hay mã OTP cả!'
-  },
-  {
-    id: 'G',
-    component: SiteG_FacebookReal,
-    isReal: true,
-    url: 'https://www.facebook.com',
-    name: 'Facebook Đăng nhập',
-    isSecure: true,
-    trickLocation: 'none',
-    explanation: 'Đây là trang web chính thức của Facebook. Tên miền đúng chuẩn <b>facebook.com</b> và có đầy đủ chứng chỉ bảo mật. Các liên kết chức năng như "Quên mật khẩu" hay "Tạo tài khoản" đều trỏ đúng về hệ thống thật của Facebook.'
+    explanation: 'Một trang web lừa đảo nhằm đánh cắp thông tin ngân hàng. Thứ nhất, tên miền thực sự là <b>vn-tuyendung.com</b> chứ không phải parttime247. Thứ hai, <b>TUYỆT ĐỐI KHÔNG</b> có nhà tuyển dụng uy tín nào lại yêu cầu bạn nhập Mật khẩu iBanking hay mã OTP cả!'
   },
   {
     id: 'H',
-    component: SiteH_HocmaiReal,
+    component: SiteH_EduMaster,
     isReal: true,
-    url: 'https://hocmai.vn',
-    name: 'Hệ thống Giáo dục HOCMAI',
+    url: 'https://edumaster.vn',
+    name: 'Nền tảng Học trực tuyến EduMaster',
     isSecure: true,
     trickLocation: 'none',
-    explanation: 'Đây là nền tảng học trực tuyến chính thống được rất nhiều học sinh sử dụng. Bạn có thể thấy URL hoàn toàn chính xác là <b>hocmai.vn</b>, không sai chính tả, không dùng tên miền phụ (subdomain) lừa đảo.'
+    explanation: 'Đây là nền tảng học trực tuyến an toàn. Bạn có thể thấy URL hoàn toàn chính xác là <b>edumaster.vn</b>, không sai chính tả, không dùng tên miền phụ (subdomain) lừa đảo.'
   },
   {
     id: 'I',
-    component: SiteI_TiktokFake,
+    component: SiteI_ReelFake,
     isReal: false,
-    url: 'https://tiktok.com.nhan-xu-free.net',
-    name: 'TikTok - Tặng Xu Miễn Phí',
+    url: 'https://reel.com.nhan-xu-free.net',
+    name: 'Reel - Tặng Xu Miễn Phí',
     isSecure: true,
     trickLocation: 'url',
-    explanation: 'Một trang web lừa đảo kinh điển đánh vào lòng tham! Tên miền thực sự ở đây là <b>nhan-xu-free.net</b>. Chuỗi <i>tiktok.com</i> được cố tình đặt ở đầu để đánh lừa mắt bạn (Thủ đoạn Tên miền phụ - Subdomain Tricking).'
+    explanation: 'Một trang web lừa đảo kinh điển đánh vào lòng tham! Tên miền thực sự ở đây là <b>nhan-xu-free.net</b>. Chuỗi <i>reel.com</i> được cố tình đặt ở đầu để đánh lừa mắt bạn (Thủ đoạn Tên miền phụ - Subdomain Tricking).'
+  },
+  {
+    id: 'J',
+    component: SiteJ_HocStemMienPhi,
+    isReal: true,
+    url: 'https://www.hocstemmienphi.com',
+    name: 'Học STEM Miễn Phí',
+    isSecure: true,
+    trickLocation: 'none',
+    explanation: 'Đây là một trang web an toàn chia sẻ các khóa học STEM miễn phí. Tên miền <b>hocstemmienphi.com</b> được viết đúng, giao diện chuyên nghiệp và không có bất kỳ hình thức thu thập mật khẩu/OTP lừa đảo nào.'
   }
 ];
 
